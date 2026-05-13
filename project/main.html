@@ -171,16 +171,31 @@
 <script>
     let total = 0;
 
-    // Saat website dibuka/reload
     window.onload = function () {
-        const lastPage = localStorage.getItem("lastPage");
+    const lastPage = sessionStorage.getItem("lastPage");
 
-        if (lastPage === "order") {
-            showOrder();
-        } else {
-            showHome();
-        }
-    };
+    if (lastPage === "order") {
+        showOrder();
+    } else {
+        showHome();
+    }
+};
+
+function showHome() {
+    document.getElementById("homePage").style.display = "block";
+    document.getElementById("orderPage").style.display = "none";
+
+    // Simpan halaman terakhir
+    sessionStorage.setItem("lastPage", "home");
+}
+
+function showOrder() {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("orderPage").style.display = "block";
+
+    // Simpan halaman terakhir
+    sessionStorage.setItem("lastPage", "order");
+}
 
     function addToCart(nama, harga) {
         const list = document.getElementById("cart-list");
@@ -197,24 +212,10 @@
         toggleClearButton();
     }
 
-    function showHome() {
-        document.getElementById("homePage").style.display = "block";
-        document.getElementById("orderPage").style.display = "none";
-
-        // Simpan halaman terakhir
-        localStorage.setItem("lastPage", "home");
-    }
-
-    function showOrder() {
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("orderPage").style.display = "block";
-
-        // Simpan halaman terakhir
-        localStorage.setItem("lastPage", "order");
-    }
-
     function clearCart() {
-        document.getElementById("cart-list").innerHTML = "";
+        const list = document.getElementById("cart-list");
+        list.innerHTML = "";
+
         total = 0;
         document.getElementById("total").innerText = total;
 
