@@ -1565,32 +1565,33 @@ footer hr{
 
     function checkout(){
 
-    // Jika keranjang kosong
-    if(total === 0){
+        // Jika keranjang kosong
+        if(total === 0){
 
-        const emptyModal = new bootstrap.Modal(
-            document.getElementById('emptyCartModal')
-        );
+            const emptyModal = new bootstrap.Modal(
+                document.getElementById('emptyCartModal')
+            );
 
-        emptyModal.show();
+            emptyModal.show();
 
         }
 
-    // Jika ada isi keranjang
-    else {
+        // Jika ada isi keranjang
+        else {
 
-        const checkoutModal = new bootstrap.Modal(
-            document.getElementById('checkoutModal')
-        );
+            const checkoutModal = new bootstrap.Modal(
+                document.getElementById('checkoutModal')
+            );
 
-        checkoutModal.show();
+            checkoutModal.show();
 
         }
 
     }
 
-// Menampilkan halaman checkout
-function showCheckout(){
+    // Menampilkan halaman checkout
+    function showCheckout(){
+
 
     document.getElementById("homePage").style.display = "none";
 
