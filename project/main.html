@@ -1687,185 +1687,145 @@ footer hr{
 
 <script>
 
-    let total = 0;
+let total = 0;
+let selectedMethod = "";
 
-    function showHome(){
+// ======================
+// NAVIGATION
+// ======================
 
-        document.getElementById("homePage").style.display = "block";
-        document.getElementById("orderPage").style.display = "none";
-        document.getElementById("contactPage").style.display = "none";
+function showHome(){
 
-        document.getElementById("cartBox").style.display = "none";
+    document.getElementById("homePage").style.display = "block";
+    document.getElementById("orderPage").style.display = "none";
+    document.getElementById("contactPage").style.display = "none";
+    document.getElementById("checkoutPage").style.display = "none";
 
-    }
+    document.getElementById("cartBox").style.display = "none";
 
-    function showOrder(){
+}
 
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("orderPage").style.display = "block";
-        document.getElementById("contactPage").style.display = "none";
-
-        document.getElementById("cartBox").style.display = "block";
-
-    }
-
-    function showContact(){
-
-        document.getElementById("homePage").style.display = "none";
-        document.getElementById("orderPage").style.display = "none";
-        document.getElementById("contactPage").style.display = "block";
-
-        document.getElementById("cartBox").style.display = "none";
-
-    }
-
-    function addToCart(nama, harga){
-
-        const list = document.getElementById("cart-list");
-
-        let item = document.createElement("li");
-
-        item.className = "list-group-item";
-
-        item.innerText = nama + " - Rp " + harga;
-
-        list.appendChild(item);
-
-        total += harga;
-
-        document.getElementById("total").innerText = total;
-
-        toggleClearButton();
-
-    }
-
-    function clearCart(){
-
-        document.getElementById("cart-list").innerHTML = "";
-
-        total = 0;
-
-        document.getElementById("total").innerText = total;
-
-        toggleClearButton();
-
-    }
-
-    function checkout(){
-
-        // Jika keranjang kosong
-        if(total === 0){
-
-            const emptyModal = new bootstrap.Modal(
-                document.getElementById('emptyCartModal')
-            );
-
-            emptyModal.show();
-
-        }
-
-        // Jika ada isi keranjang
-        else {
-
-            const checkoutModal = new bootstrap.Modal(
-                document.getElementById('checkoutModal')
-            );
-
-            checkoutModal.show();
-
-        }
-
-    }
-
-    // Menampilkan halaman checkout
-    function showCheckout(){
-
+function showOrder(){
 
     document.getElementById("homePage").style.display = "none";
-
-    document.getElementById("orderPage").style.display = "none";
-
+    document.getElementById("orderPage").style.display = "block";
     document.getElementById("contactPage").style.display = "none";
+    document.getElementById("checkoutPage").style.display = "none";
 
+    document.getElementById("cartBox").style.display = "block";
+
+}
+
+function showContact(){
+
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("orderPage").style.display = "none";
+    document.getElementById("contactPage").style.display = "block";
+    document.getElementById("checkoutPage").style.display = "none";
+
+    document.getElementById("cartBox").style.display = "none";
+
+}
+
+function showCheckout(){
+
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("orderPage").style.display = "none";
+    document.getElementById("contactPage").style.display = "none";
     document.getElementById("checkoutPage").style.display = "block";
 
     document.getElementById("cartBox").style.display = "none";
 
 }
 
-// Pembayaran berhasil
-function paymentSuccess(method){
+// ======================
+// CART
+// ======================
 
-    let selectedMethod = "";
+function addToCart(nama, harga){
 
-// Membuka popup detail pembayaran
-function openPaymentModal(method){
+    const list = document.getElementById("cart-list");
 
-    selectedMethod = method;
+    let item = document.createElement("li");
 
-    // Menampilkan metode pembayaran
-    document.getElementById("paymentMethodText").innerText = method;
+    item.className = "list-group-item";
 
-    // Menampilkan subtotal
-    document.getElementById("subtotalText").innerText = total;
+    item.innerText = nama + " - Rp " + harga;
 
-    // Membuka modal
-    const paymentModal = new bootstrap.Modal(
-        document.getElementById('paymentDetailModal')
-    );
+    list.appendChild(item);
 
-    paymentModal.show();
+    total += harga;
 
-}
+    document.getElementById("total").innerText = total;
 
-// Konfirmasi pembayaran
-function confirmPayment(){
-
-    // Tutup popup detail pembayaran
-    const paymentModalElement =
-        document.getElementById("paymentDetailModal");
-
-    const paymentModal =
-        bootstrap.Modal.getInstance(paymentModalElement);
-
-    paymentModal.hide();
-
-    // Tampilkan popup pembayaran berhasil
-    const successModal =
-        new bootstrap.Modal(
-            document.getElementById("successPaymentModal")
-        );
-
-    successModal.show();
-
-    // Reset keranjang
-    clearCart();
+    toggleClearButton();
 
 }
 
+function clearCart(){
+
+    document.getElementById("cart-list").innerHTML = "";
+
+    total = 0;
+
+    document.getElementById("total").innerText = total;
+
+    toggleClearButton();
+
 }
 
-    function toggleClearButton(){
+function toggleClearButton(){
 
-        const clearBtn = document.getElementById("clearBtn");
+    const clearBtn = document.getElementById("clearBtn");
 
-        const cartList = document.getElementById("cart-list");
+    const cartList = document.getElementById("cart-list");
 
-        if(cartList.children.length > 0){
+    if(cartList.children.length > 0){
 
-            clearBtn.style.display = "inline-block";
+        clearBtn.style.display = "inline-block";
 
-        } else {
+    } else {
 
-            clearBtn.style.display = "none";
-
-        }
+        clearBtn.style.display = "none";
 
     }
 
-let selectedMethod = "";
+}
 
-// MEMBUKA POPUP PEMBAYARAN
+// ======================
+// CHECKOUT
+// ======================
+
+function checkout(){
+
+    // Jika keranjang kosong
+    if(total === 0){
+
+        const emptyModal = new bootstrap.Modal(
+            document.getElementById('emptyCartModal')
+        );
+
+        emptyModal.show();
+
+    }
+
+    // Jika ada isi keranjang
+    else {
+
+        const checkoutModal = new bootstrap.Modal(
+            document.getElementById('checkoutModal')
+        );
+
+        checkoutModal.show();
+
+    }
+
+}
+
+// ======================
+// PAYMENT
+// ======================
+
 function openPaymentModal(method){
 
     // Simpan metode
@@ -1890,7 +1850,6 @@ function openPaymentModal(method){
 
 }
 
-// KONFIRMASI PEMBAYARAN
 function confirmPayment(){
 
     // Tutup modal pembayaran
